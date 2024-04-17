@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
             if (doubleJump)
             {
                 rig.AddForce(new Vector2(0f, JumpForce / 1.5f), ForceMode2D.Impulse);
+                animator.SetBool("double_jump", true);
                 doubleJump = false;
             }
 
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour
         {
             isJumping = false;
             animator.SetBool("jump", false);
+            animator.SetBool("double_jump", false);
         }
     }
 
