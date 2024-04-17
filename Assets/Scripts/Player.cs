@@ -9,6 +9,10 @@ public class Player : MonoBehaviour
 
     public float JumpForce = 10;
 
+    public bool isJumping = false;
+
+    public bool doubleJump = false;
+
     private Rigidbody2D rig;
 
     void Start()
@@ -33,7 +37,35 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+            if (!isJumping)
+            {
+                rig.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+                doubleJump = true;
+                return;
+            }
+
+            if (doubleJump)
+            {
+                rig.AddForce(new Vector2(0f, JumpForce / 1.5f), ForceMode2D.Impulse);
+                doubleJump = false;
+            }
+
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.layer == 6)
+        {
+            isJumping = false;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.layer == 6)
+        {
+            isJumping = true;
         }
     }
 }
