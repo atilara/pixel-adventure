@@ -32,17 +32,17 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        Vector3 movement = new(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += Speed * Time.deltaTime * movement;
+        float movement = Input.GetAxis("Horizontal");
+        rig.velocity = new Vector2(movement * Speed, rig.velocity.y);
 
-        if (Input.GetAxis("Horizontal") > 0f)
+        if (movement > 0f)
         {
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
             animator.SetBool("run", true);
             return;
         }
 
-        if (Input.GetAxis("Horizontal") < 0f)
+        if (movement < 0f)
         {
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
             animator.SetBool("run", true);
