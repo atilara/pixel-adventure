@@ -84,6 +84,14 @@ public class Player : MonoBehaviour
             animator.SetBool("jump", false);
             animator.SetBool("double_jump", false);
         }
+
+        if (col.gameObject.CompareTag("Spike"))
+        {
+            GameController.instance.totalScore = 0;
+            GameController.instance.UpdateScoreText();
+            GameController.instance.ShowGameOver();
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionExit2D(Collision2D col)

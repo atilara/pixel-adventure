@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     public int totalScore;
 
     public TextMeshProUGUI scoreText;
+
+    public GameObject gameOverPanel;
 
     public static GameController instance;
 
@@ -22,6 +25,16 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void ShowGameOver()
+    {
+        gameOverPanel.SetActive(true);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void UpdateScoreText()
