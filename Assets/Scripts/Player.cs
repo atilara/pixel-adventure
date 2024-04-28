@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
             animator.SetBool("double_jump", false);
         }
 
-        if (col.gameObject.CompareTag("Spike"))
+        if (col.gameObject.CompareTag("Dangerous"))
         {
             GameController.instance.totalScore = 0;
             GameController.instance.UpdateScoreText();
