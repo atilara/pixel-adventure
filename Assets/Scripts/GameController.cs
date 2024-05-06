@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
 
     public GameObject gameOverPanel;
 
+    public GameObject pause;
+
     public static GameController instance;
 
     // Start is called before the first frame update
@@ -28,9 +30,11 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1)
         {
             Time.timeScale = 0;
+            pause.SetActive(true);
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
         {
+            pause.SetActive(false);
             Time.timeScale = 1;
         }
     }
