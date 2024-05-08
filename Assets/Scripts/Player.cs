@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -14,13 +15,21 @@ public class Player : MonoBehaviour
     public bool doubleJump = false;
 
     private Rigidbody2D rig;
+
     private Animator animator;
 
+    public TextMeshProUGUI powerUpCountText;
+
+    public static int powerUpCount = 01;
+
+    public bool isPowerUp = false;
 
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        powerUpCountText = GameObject.Find("PowerUpText").GetComponent<TextMeshProUGUI>();
+        powerUpCountText.text = "0" + powerUpCount.ToString();
     }
 
     // Update is called once per frame
@@ -28,6 +37,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Jump();
+        PowerUp();
     }
 
     void Move()
@@ -76,6 +86,30 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void PowerUp()
+    {
+
+        if (powerUpCount <= 0)
+        {
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("PowerUp");
+            powerUpCount--;
+            powerUpCountText.text = "00";
+            isPowerUp = true;
+            Invoke("DeactivatePowerUp", 7);
+        }
+    }
+
+    void DeactivatePowerUp()
+    {
+        Debug.Log("DeactivatePowerUp");
+        isPowerUp = false;
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.layer == 6)
@@ -85,7 +119,7 @@ public class Player : MonoBehaviour
             animator.SetBool("double_jump", false);
         }
 
-        if (col.gameObject.CompareTag("Dangerous"))
+        if (col.gameObject.CompareTag("Dangerous") && !isPowerUp)
         {
             GameController.instance.totalScore = 0;
             GameController.instance.UpdateScoreText();
