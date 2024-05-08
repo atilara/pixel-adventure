@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     public static int powerUpCount = 01;
 
-    public bool isPowerUp = false;
+    public static bool isPowerUp = false;
 
     void Start()
     {
@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Debug.Log("PowerUp");
+            
             powerUpCount--;
             powerUpCountText.text = "00";
             isPowerUp = true;

@@ -32,5 +32,6 @@ public class NextLevelPoint : MonoBehaviour
     void NextLevel()
     {
         SceneManager.LoadScene(nextLevel);
+        Player.isPowerUp = false;
     }
 }
